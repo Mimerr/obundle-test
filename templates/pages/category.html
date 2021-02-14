@@ -1,0 +1,72 @@
+---
+category:
+    shop_by_price: true
+    products:
+        limit: {{theme_settings.categorypage_products_per_page}}
+---
+{{inject "categoryProductsPerPage" theme_settings.categorypage_products_per_page}}
+{{inject "categoryId" category.id}}
+{{#partial "head"}}
+    {{#if pagination.category.previous}}
+        <link rel="prev" href="{{pagination.category.previous}}">
+    {{/if}}
+    {{#if pagination.category.next}}
+        <link rel="next" href="{{pagination.category.next}}">
+    {{/if}}
+{{/partial}}
+
+<div class="banners" data-banner-location="top">
+    <div class="banner" data-event-type="promotion" data-entity-id="1" data-name="Customer Info" data-position="top" data-banner-id="Customer Info">
+        <div data-event-type="promotion-click">
+            <p>Hello! {{customer.name}} ({{customer.email}}) {{customer.phone}}</p>
+        </div>
+    </div>
+</div>
+
+{{#partial "page"}}
+
+{{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+{{#if category.image}}
+    {{> components/common/responsive-img
+        image=category.image
+        fallback_size=theme_settings.zoom_size
+        lazyload=theme_settings.lazyload_mode
+        class="category-header-image"
+    }}
+{{/if}}
+{{#unless theme_settings.hide_category_page_heading }}
+    <h1 class="page-heading">{{category.name}}</h1>
+    {{{region name="category_below_header"}}}
+{{/unless}}
+{{{category.description}}}
+<div class="page">
+    {{#if category.faceted_search_enabled}}
+        <aside class="page-sidebar" id="faceted-search-container">
+            {{> components/category/sidebar}}
+        </aside>
+    {{else if category.subcategories}}
+        <aside class="page-sidebar" id="faceted-search-container">
+            {{> components/category/sidebar}}
+        </aside>
+    {{else if category.shop_by_price}}
+        {{#if theme_settings.shop_by_price_visibility}}
+             <aside class="page-sidebar" id="faceted-search-container">
+                {{> components/category/sidebar}}
+            </aside>
+        {{/if}}
+    {{/if}}
+
+    <main class="page-content" id="product-listing-container">
+        <div class="category-cart-ops">
+            <button class="button button--primary category-add-all">{{lang 'products.add_all_to_cart'}}</button>
+            <button id="cart-remove-all" class="button">{{lang 'products.remove_all_from_cart'}}</button>
+        </div>
+        <div id="category-cart-alert">{{lang 'products.added_all_to_cart'}}</div>
+        <div id="empty-cart-alert">{{lang 'products.removed_all_from_cart'}}</div>
+        {{> components/category/product-listing}}
+        {{{region name="category_below_content"}}}
+    </main>
+</div>
+
+{{/partial}}
+{{> layout/base}}

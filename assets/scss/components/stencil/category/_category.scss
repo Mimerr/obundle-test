@@ -1,0 +1,39 @@
+// =============================================================================
+// CATEGORY (CSS)
+// =============================================================================
+
+
+// Category header
+// -----------------------------------------------------------------------------
+
+.category-header-image {
+    width: 100%;
+}
+
+#cart-remove-all {
+    visibility: hidden;
+}
+
+#cart-remove-all.show {
+    visibility: visible;
+}
+
+#category-cart-alert {
+    visibility: hidden;
+}
+
+#category-cart-alert.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#empty-cart-alert {
+    visibility: hidden;
+}
+
+#empty-cart-alert.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
